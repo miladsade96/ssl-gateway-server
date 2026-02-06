@@ -1,3 +1,5 @@
 spring:
   application:
     name: ssl-gateway-server
+server:
+  port: 8090
