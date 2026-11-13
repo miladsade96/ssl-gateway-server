@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +23,8 @@ public class GatewaySecurityConfig {
                 .x509(x509 -> x509
                         .subjectPrincipalRegex("CN=(.*?)(?:,|$)")
                         .userDetailsService(userDetailsService())
-                );
+                )
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }

@@ -1,17 +1,18 @@
 spring:
   application:
     name: ssl-gateway-server
+
 server:
   port: 8090
   ssl:
     enabled: true
-    # Server's certificate
+    # Server's certificate (for incoming connections)
     key-store: classpath:gateway-keystore.jks
     key-store-password: gateway-pass
     key-store-type: JKS
-    key-alias: ssl-gateway-server
+    key-alias: gateway-server
 
-    # Require client certificate authentication
+    # Require client certificate authentication (mTLS)
     client-auth: need
 
     # Trust only certificates signed by our CA
@@ -19,7 +20,7 @@ server:
     trust-store-password: truststore-pass
     trust-store-type: JKS
 
-
 logging:
   level:
-    javax.net.ssl: DEBUG  # For debugging SSL handshake
+    org.springframework.security: DEBUG
+    javax.net.ssl: DEBUG
